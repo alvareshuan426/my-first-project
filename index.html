@@ -556,11 +556,19 @@ let target   = 0;
 let shown    = 0;
 let ready    = false;
 
-film.addEventListener('loadedmetadata', () => {
-  duration = film.duration || 0;
-  ready = duration > 0;
-  paint();
-});
+function initFilm(){
+  if (ready) return;
+  const d = film.duration;
+  if (d > 0 && isFinite(d)){
+    duration = d;
+    ready = true;
+    paint();
+  }
+}
+
+/* metadata can finish loading before this script runs, so the event alone is not enough */
+['loadedmetadata','durationchange','loadeddata','canplay'].forEach(e => film.addEventListener(e, initFilm));
+initFilm();
 
 /* iOS refuses to seek until the element has played once */
 function unlock(){
