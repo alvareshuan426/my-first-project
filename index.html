@@ -1,0 +1,649 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Adittaprof — автоковрики EVA собственного производства</title>
+<meta name="description" content="Производство автоковриков EVA в Ставрополе. Лекала под вашу модель авто, 3D-борта, окантовка, металлический подпятник. Доставка по всей России.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0A0A0B;
+  --surface:#121214;
+  --surface-2:#17171A;
+  --text:#F2EFE9;
+  --muted:#8C8781;
+  --accent:#D9A54C;
+  --border:rgba(242,239,233,.10);
+  --border-strong:rgba(242,239,233,.20);
+  --max:1240px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:Manrope,system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:17px;line-height:1.75;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img,video{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+
+/* ---------- nav ---------- */
+.nav{
+  position:fixed;inset:0 0 auto 0;z-index:60;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 28px;
+  transition:background .4s ease,backdrop-filter .4s ease,border-color .4s ease;
+  border-bottom:1px solid transparent;
+}
+.nav.solid{background:rgba(10,10,11,.82);backdrop-filter:blur(14px);border-bottom-color:var(--border)}
+.brand{font-weight:800;letter-spacing:.24em;font-size:13px;text-transform:uppercase}
+.brand span{color:var(--accent)}
+.nav-links{display:flex;gap:34px;align-items:center;font-size:14px;color:var(--muted)}
+.nav-links a{transition:color .25s}
+.nav-links a:hover{color:var(--text)}
+.nav-phone{color:var(--text);font-weight:700;letter-spacing:.01em}
+@media(max-width:860px){.nav-links a:not(.btn-sm){display:none}}
+.btn-sm{
+  border:1px solid var(--border-strong);border-radius:999px;
+  padding:9px 20px;color:var(--text);font-weight:600;font-size:13px;
+  transition:background .25s,border-color .25s;
+}
+.btn-sm:hover{background:var(--accent);border-color:var(--accent);color:#0A0A0B}
+
+/* ---------- hero ---------- */
+.hero{
+  min-height:92svh;display:flex;flex-direction:column;justify-content:center;
+  padding:150px 0 90px;position:relative;overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
+.hero-bg::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(95deg,rgba(10,10,11,.97) 0%,rgba(10,10,11,.9) 42%,rgba(10,10,11,.52) 78%,rgba(10,10,11,.7) 100%),
+    linear-gradient(to bottom,rgba(10,10,11,.7) 0%,rgba(10,10,11,.2) 42%,rgba(10,10,11,.92) 100%);
+}
+@media(max-width:860px){
+  .hero-bg::after{background:linear-gradient(to bottom,rgba(10,10,11,.9) 0%,rgba(10,10,11,.72) 45%,rgba(10,10,11,.95) 100%)}
+}
+.hero-inner{position:relative;z-index:1;width:100%}
+.eyebrow{
+  font-size:12px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:28px;
+}
+h1{
+  font-size:clamp(2.75rem,9vw,7.5rem);font-weight:800;
+  letter-spacing:-.045em;line-height:.94;margin-bottom:32px;
+}
+h1 em{font-style:normal;color:var(--muted)}
+.hero p{max-width:48ch;color:var(--muted);font-size:clamp(1rem,1.6vw,1.2rem)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:44px}
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--accent);color:#0A0A0B;font-weight:700;font-size:15px;
+  padding:15px 30px;border-radius:999px;border:1px solid var(--accent);
+  transition:transform .2s,filter .2s;
+}
+.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.btn.ghost{background:transparent;color:var(--text);border-color:var(--border-strong)}
+.btn.ghost:hover{border-color:var(--text);filter:none}
+.scroll-cue{
+  position:absolute;left:28px;bottom:36px;z-index:2;
+  font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:12px;
+}
+.scroll-cue::after{content:"";width:52px;height:1px;background:var(--border-strong);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%,100%{transform:scaleX(.35);transform-origin:left}50%{transform:scaleX(1);transform-origin:left}}
+
+/* ---------- scroll film ---------- */
+.film-track{position:relative;height:620vh}
+.film-pin{
+  position:sticky;top:0;height:100svh;overflow:hidden;
+  display:flex;align-items:flex-end;
+}
+.film-pin video,.film-pin .poster{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;z-index:0;
+}
+.film-pin::after{
+  content:"";position:absolute;inset:0;z-index:1;
+  background:linear-gradient(to top,rgba(10,10,11,.94) 0%,rgba(10,10,11,.55) 32%,rgba(10,10,11,.18) 62%,rgba(10,10,11,.55) 100%);
+  pointer-events:none;
+}
+.caption-layer{position:relative;z-index:2;width:100%;padding:0 0 96px}
+.caption{
+  position:absolute;bottom:0;left:0;right:0;
+  opacity:0;transform:translateY(22px);
+  transition:opacity .1s linear,transform .1s linear;
+  will-change:opacity,transform;
+}
+.caption .inner{max-width:var(--max);margin:0 auto;padding:0 28px}
+.stage-no{
+  font-size:12px;font-weight:700;letter-spacing:.34em;color:var(--accent);
+  margin-bottom:16px;display:block;
+}
+.caption h2{
+  font-size:clamp(2rem,5.4vw,4.25rem);font-weight:800;
+  letter-spacing:-.035em;line-height:1.02;margin-bottom:18px;
+}
+.caption p{max-width:46ch;color:rgba(242,239,233,.78);font-size:clamp(.98rem,1.5vw,1.15rem)}
+
+/* progress rail */
+.rail{
+  position:absolute;z-index:3;right:28px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:10px;
+}
+.rail i{
+  display:block;width:2px;height:38px;background:var(--border-strong);
+  border-radius:2px;
+}
+@media(max-width:860px){.rail{display:none}}
+
+/* ---------- generic section ---------- */
+section.band{padding:clamp(90px,13vw,170px) 0}
+.sec-head{max-width:62ch;margin-bottom:clamp(48px,7vw,84px)}
+.sec-head .eyebrow{margin-bottom:22px}
+h3.sec-title{
+  font-size:clamp(1.9rem,4.6vw,3.5rem);font-weight:800;
+  letter-spacing:-.035em;line-height:1.06;
+}
+.sec-head p{color:var(--muted);margin-top:22px;max-width:52ch}
+
+.grid{display:grid;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.grid.c4{grid-template-columns:repeat(4,1fr)}
+.grid.c3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:980px){.grid.c4{grid-template-columns:repeat(2,1fr)}.grid.c3{grid-template-columns:1fr}}
+@media(max-width:560px){.grid.c4{grid-template-columns:1fr}}
+.cell{background:var(--surface);padding:38px 32px;transition:background .3s}
+.cell:hover{background:var(--surface-2)}
+.cell .k{
+  font-size:12px;font-weight:700;letter-spacing:.3em;color:var(--accent);
+  display:block;margin-bottom:20px;
+}
+.cell h4{font-size:1.2rem;font-weight:700;letter-spacing:-.01em;margin-bottom:12px}
+.cell p{color:var(--muted);font-size:.97rem;line-height:1.7}
+
+/* materials */
+.mat{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:860px){.mat{grid-template-columns:1fr}}
+.mat-card{
+  border:1px solid var(--border);border-radius:18px;overflow:hidden;
+  background:var(--surface);display:flex;flex-direction:column;
+}
+.mat-card .ph{aspect-ratio:16/10;background:#0E0E10;position:relative;overflow:hidden}
+.mat-card .ph img{width:100%;height:100%;object-fit:cover}
+.mat-card .body{padding:32px}
+.mat-card h4{font-size:1.5rem;font-weight:800;letter-spacing:-.02em;margin-bottom:10px}
+.tag{
+  display:inline-block;font-size:11px;font-weight:700;letter-spacing:.2em;
+  text-transform:uppercase;padding:5px 12px;border-radius:999px;margin-bottom:18px;
+}
+.tag.live{background:rgba(217,165,76,.14);color:var(--accent)}
+.tag.soon{background:rgba(242,239,233,.08);color:var(--muted)}
+.mat-card p{color:var(--muted);font-size:.97rem}
+.mat-card ul{list-style:none;margin-top:20px;display:grid;gap:10px}
+.mat-card li{color:var(--muted);font-size:.94rem;padding-left:20px;position:relative}
+.mat-card li::before{content:"—";position:absolute;left:0;color:var(--accent)}
+
+/* marketplaces */
+.shops{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:860px){.shops{grid-template-columns:1fr}}
+.shop{
+  border:1px solid var(--border);border-radius:18px;background:var(--surface);
+  padding:38px 34px;display:flex;flex-direction:column;gap:10px;
+  transition:border-color .3s,background .3s,transform .3s;
+}
+.shop:hover{border-color:var(--accent);background:var(--surface-2);transform:translateY(-3px)}
+.shop-name{font-size:1.9rem;font-weight:800;letter-spacing:-.03em}
+.shop-sub{color:var(--muted);font-size:.97rem}
+.shop-go{
+  margin-top:18px;color:var(--accent);font-weight:700;font-size:.92rem;
+  letter-spacing:.04em;display:inline-flex;align-items:center;gap:8px;
+}
+
+/* contacts */
+.contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:16px;overflow:hidden;margin-top:24px}
+@media(max-width:860px){.contacts{grid-template-columns:1fr}}
+.contact{background:var(--surface);padding:30px 28px;transition:background .3s}
+a.contact:hover{background:var(--surface-2)}
+.contact .k{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:12px}
+.contact .v{font-size:1.22rem;font-weight:700;letter-spacing:-.02em;display:block}
+.contact .n{color:var(--muted);font-size:.88rem;margin-top:6px;display:block}
+
+/* order form */
+.order{
+  border:1px solid var(--border);border-radius:20px;background:var(--surface);
+  padding:clamp(32px,5vw,60px);
+}
+.fields{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:860px){.fields{grid-template-columns:1fr}}
+.field label{
+  display:block;font-size:11px;font-weight:700;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:10px;
+}
+.field input,.field select{
+  width:100%;background:#0E0E10;border:1px solid var(--border);border-radius:10px;
+  color:var(--text);font-family:inherit;font-size:15px;padding:14px 16px;
+  transition:border-color .2s;
+}
+.field input:focus,.field select:focus{outline:none;border-color:var(--accent)}
+.field input::placeholder{color:#5C5853}
+.order-foot{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-top:28px}
+.order-note{color:var(--muted);font-size:.88rem;max-width:40ch}
+.err{color:#E2705F;font-size:.85rem;margin-top:8px;display:none}
+.ok{
+  display:none;background:rgba(217,165,76,.1);border:1px solid rgba(217,165,76,.3);
+  border-radius:12px;padding:20px 24px;margin-top:24px;color:var(--text);font-size:.97rem;
+}
+
+/* footer */
+footer{border-top:1px solid var(--border);padding:70px 0 50px;margin-top:40px}
+.foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:44px}
+@media(max-width:980px){.foot-grid{grid-template-columns:1fr 1fr;gap:38px}}
+@media(max-width:560px){.foot-grid{grid-template-columns:1fr;gap:34px}}
+footer h5{font-size:11px;font-weight:700;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+footer p,footer a{color:var(--muted);font-size:.95rem;line-height:1.9;display:block}
+footer a:hover{color:var(--text)}
+.foot-brand{font-size:1.6rem;font-weight:800;letter-spacing:-.03em;color:var(--text);margin-bottom:12px}
+.copy{margin-top:54px;padding-top:26px;border-top:1px solid var(--border);color:#5C5853;font-size:.85rem}
+
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.3,1),transform .8s cubic-bezier(.2,.7,.3,1)}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  .rv{opacity:1;transform:none;transition:none}
+  html{scroll-behavior:auto}
+  .scroll-cue::after{animation:none}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <a href="#top" class="brand">Aditta<span>prof</span></a>
+  <div class="nav-links">
+    <a href="#process">Производство</a>
+    <a href="#materials">Материалы</a>
+    <a href="#shops">Где купить</a>
+    <a href="tel:+79003388888" class="nav-phone">8-900-33-88888</a>
+    <a href="#order" class="btn-sm">Подобрать комплект</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-bg">
+    <img src="assets/hero-shop.jpg" alt="Производственный цех Adittaprof в Ставрополе: станок ЧПУ, стеллажи с листами EVA, столы с готовыми ковриками">
+  </div>
+  <div class="wrap hero-inner">
+    <span class="eyebrow rv">Ставрополь · Доставка по России</span>
+    <h1 class="rv">Автоковрики&nbsp;EVA<br><em>собственного производства</em></h1>
+    <p class="rv">Режем по цифровому лекалу вашей модели. Высокие борта, окантовка по краю, металлический подпятник — полный цикл на одном производстве.</p>
+    <div class="hero-actions rv">
+      <a href="#order" class="btn">Подобрать по авто</a>
+      <a href="#process" class="btn ghost">Как мы производим</a>
+    </div>
+  </div>
+  <span class="scroll-cue">Листайте вниз</span>
+</header>
+
+<!-- ===== scroll-driven film ===== -->
+<section class="film-track" id="process">
+  <div class="film-pin">
+    <video id="film" muted playsinline preload="auto" poster="assets/video/poster.jpg">
+      <source src="assets/video/film.mp4" type="video/mp4">
+    </video>
+
+    <div class="rail" id="rail"><i></i><i></i><i></i><i></i><i></i></div>
+
+    <div class="caption-layer">
+      <article class="caption">
+        <div class="inner">
+          <span class="stage-no">Этап 01</span>
+          <h2>Материал</h2>
+          <p>Листы EVA высокой плотности. Не впитывают влагу, не дубеют на морозе и не трескаются — материал держит форму годами.</p>
+        </div>
+      </article>
+      <article class="caption">
+        <div class="inner">
+          <span class="stage-no">Этап 02</span>
+          <h2>Раскрой на ЧПУ</h2>
+          <p>Станок режет по цифровому лекалу именно вашей модели. Точность до миллиметра — коврик ложится в пол без зазоров и нахлёстов.</p>
+        </div>
+      </article>
+      <article class="caption">
+        <div class="inner">
+          <span class="stage-no">Этап 03</span>
+          <h2>Формовка бортов</h2>
+          <p>Высокие 3D-борта по периметру. Вода, снег, песок и грязь остаются внутри коврика и не попадают на пол салона.</p>
+        </div>
+      </article>
+      <article class="caption">
+        <div class="inner">
+          <span class="stage-no">Этап 04</span>
+          <h2>Окантовка края</h2>
+          <p>Кромка закрывается кантом на промышленной машине. Край не лохматится, не расходится и держит геометрию коврика.</p>
+        </div>
+      </article>
+      <article class="caption">
+        <div class="inner">
+          <span class="stage-no">Этап 05</span>
+          <h2>Подпятник и шильдик</h2>
+          <p>Металлический подпятник под каблук защищает зону максимального износа. Шильдик с моделью авто — финальная деталь комплекта.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===== advantages ===== -->
+<section class="band wrap" id="advantages">
+  <div class="sec-head rv">
+    <span class="eyebrow">Почему Adittaprof</span>
+    <h3 class="sec-title">Производим сами — отвечаем за каждый этап</h3>
+    <p>Мы не перепродаём чужие коврики. Материал, раскрой, сборка и упаковка проходят на нашем производстве в Ставрополе.</p>
+  </div>
+  <div class="grid c4 rv">
+    <div class="cell">
+      <span class="k">01</span>
+      <h4>Лекала под модель</h4>
+      <p>База цифровых лекал под большинство популярных марок и поколений. Нет вашей модели — снимем размеры.</p>
+    </div>
+    <div class="cell">
+      <span class="k">02</span>
+      <h4>Не скользит</h4>
+      <p>Шипованная подложка удерживает коврик на штатном покрытии — он не уезжает под педали.</p>
+    </div>
+    <div class="cell">
+      <span class="k">03</span>
+      <h4>Моется за минуту</h4>
+      <p>Достал, сполоснул водой, стряхнул — и обратно. Ни химии, ни сушки, ни запаха.</p>
+    </div>
+    <div class="cell">
+      <span class="k">04</span>
+      <h4>Отправка по России</h4>
+      <p>Транспортные компании и почта. Комплект едет в жёсткой упаковке, без заломов.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== materials ===== -->
+<section class="band wrap" id="materials">
+  <div class="sec-head rv">
+    <span class="eyebrow">Материалы</span>
+    <h3 class="sec-title">Сегодня EVA. Дальше — премиальный ворс</h3>
+  </div>
+  <div class="mat rv">
+    <div class="mat-card">
+      <div class="ph"><img src="assets/frames/frame5.jpg" alt="Готовый коврик EVA с окантовкой и металлическим подпятником"></div>
+      <div class="body">
+        <span class="tag live">В производстве</span>
+        <h4>EVA</h4>
+        <p>Основной материал линейки. Ячеистая структура «соты» удерживает грязь и влагу в толще коврика.</p>
+        <ul>
+          <li>Рабочий диапазон от −45 °C до +70 °C</li>
+          <li>Высокие борта, окантовка по периметру</li>
+          <li>Металлический подпятник и шильдик</li>
+          <li>Комплект: перед, зад, по желанию — багажник</li>
+        </ul>
+      </div>
+    </div>
+    <div class="mat-card">
+      <div class="ph"><img src="assets/frames/frame0.jpg" alt="Складские листы материала для производства автоковриков"></div>
+      <div class="body">
+        <span class="tag soon">Готовим к запуску</span>
+        <h4>Премиальный ворс</h4>
+        <p>Ворсовая линейка для тех, кому важнее вид салона, чем стойкость к слякоти. Запуск — в планах производства.</p>
+        <ul>
+          <li>Плотный автомобильный ворс</li>
+          <li>Основа с бортом и влагозащитой</li>
+          <li>Выбор цвета канта и прострочки</li>
+          <li>Точно такие же лекала под модель</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== marketplaces ===== -->
+<section class="band wrap" id="shops">
+  <div class="sec-head rv">
+    <span class="eyebrow">Где купить</span>
+    <h3 class="sec-title">Мы на маркетплейсах</h3>
+    <p>Готовые комплекты под популярные модели — с доставкой в ваш город, отзывами и защитой площадки.</p>
+  </div>
+  <div class="shops rv">
+    <a class="shop" href="https://www.ozon.ru/seller/adittaprof-3013156/" target="_blank" rel="noopener">
+      <span class="shop-name">Ozon</span>
+      <span class="shop-sub">Официальный магазин Adittaprof</span>
+      <span class="shop-go">Открыть магазин →</span>
+    </a>
+    <a class="shop" href="https://www.wildberries.ru/brands/312228672-adittaprof" target="_blank" rel="noopener">
+      <span class="shop-name">Wildberries</span>
+      <span class="shop-sub">Бренд Adittaprof</span>
+      <span class="shop-go">Открыть бренд →</span>
+    </a>
+  </div>
+</section>
+
+<!-- ===== order ===== -->
+<section class="band wrap" id="order">
+  <div class="sec-head rv">
+    <span class="eyebrow">Заявка</span>
+    <h3 class="sec-title">Подберём комплект под ваш автомобиль</h3>
+    <p>Оставьте марку, модель и год — ответим с ценой и сроком изготовления. Обычно в течение рабочего дня.</p>
+  </div>
+
+  <form class="order rv" id="orderForm" novalidate>
+    <div class="fields">
+      <div class="field">
+        <label for="brand">Марка</label>
+        <input id="brand" name="brand" type="text" placeholder="Toyota" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="model">Модель</label>
+        <input id="model" name="model" type="text" placeholder="Camry" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="year">Год выпуска</label>
+        <input id="year" name="year" type="text" inputmode="numeric" placeholder="2020" autocomplete="off">
+      </div>
+      <div class="field">
+        <label for="kit">Комплект</label>
+        <select id="kit" name="kit">
+          <option value="front-rear">Перед + зад</option>
+          <option value="front">Только перед</option>
+          <option value="full">Перед + зад + багажник</option>
+          <option value="trunk">Только багажник</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="phone">Телефон</label>
+        <input id="phone" name="phone" type="tel" placeholder="+7 900 000-00-00" autocomplete="tel">
+      </div>
+      <div class="field">
+        <label for="city">Город доставки</label>
+        <input id="city" name="city" type="text" placeholder="Ставрополь" autocomplete="address-level2">
+      </div>
+    </div>
+    <p class="err" id="formErr">Заполните марку, модель и телефон.</p>
+    <div class="order-foot">
+      <button type="submit" class="btn">Отправить заявку</button>
+      <span class="order-note">Перезвоним и уточним детали. Никаких рассылок.</span>
+    </div>
+    <div class="ok" id="formOk"></div>
+  </form>
+
+  <div class="contacts rv">
+    <a class="contact" href="tel:+79003388888">
+      <span class="k">Телефон</span>
+      <span class="v">8-900-33-88888</span>
+      <span class="n">Звонок или WhatsApp</span>
+    </a>
+    <a class="contact" href="https://t.me/adittaprof" target="_blank" rel="noopener">
+      <span class="k">Telegram</span>
+      <span class="v">@adittaprof</span>
+      <span class="n">Быстрее всего — напишите сюда</span>
+    </a>
+    <div class="contact">
+      <span class="k">Производство</span>
+      <span class="v">Ставрополь</span>
+      <span class="n">Отгрузка по всей России</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Adittaprof</div>
+        <p>Производство автомобильных ковриков EVA.<br>Полный цикл: раскрой, сборка, окантовка, упаковка.</p>
+      </div>
+      <div>
+        <h5>Контакты</h5>
+        <a href="tel:+79003388888">8-900-33-88888</a>
+        <a href="https://t.me/adittaprof" target="_blank" rel="noopener">Telegram @adittaprof</a>
+        <p>г. Ставрополь</p>
+        <p>Отгрузка по всей России</p>
+      </div>
+      <div>
+        <h5>Где купить</h5>
+        <a href="https://www.ozon.ru/seller/adittaprof-3013156/" target="_blank" rel="noopener">Ozon</a>
+        <a href="https://www.wildberries.ru/brands/312228672-adittaprof" target="_blank" rel="noopener">Wildberries</a>
+      </div>
+      <div>
+        <h5>Разделы</h5>
+        <a href="#process">Как мы производим</a>
+        <a href="#advantages">Преимущества</a>
+        <a href="#materials">Материалы</a>
+        <a href="#order">Оставить заявку</a>
+      </div>
+    </div>
+    <p class="copy">© <span id="yr"></span> Adittaprof. Автоковрики EVA собственного производства.</p>
+  </div>
+</footer>
+
+<script>
+document.getElementById('yr').textContent = new Date().getFullYear();
+
+/* ---- nav background ---- */
+const nav = document.getElementById('nav');
+addEventListener('scroll', () => nav.classList.toggle('solid', scrollY > 40), {passive:true});
+
+/* ---- reveal on enter ---- */
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+}, {threshold:.15});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* ---- scroll-driven film ---- */
+const film     = document.getElementById('film');
+const track    = document.querySelector('.film-track');
+const captions = [...document.querySelectorAll('.caption')];
+const railBars = [...document.querySelectorAll('#rail i')];
+const STAGES   = captions.length;
+
+let duration = 0;
+let target   = 0;
+let shown    = 0;
+let ready    = false;
+
+film.addEventListener('loadedmetadata', () => {
+  duration = film.duration || 0;
+  ready = duration > 0;
+  paint();
+});
+
+/* iOS refuses to seek until the element has played once */
+function unlock(){
+  film.play().then(() => film.pause()).catch(() => {});
+  removeEventListener('touchstart', unlock);
+  removeEventListener('scroll', unlock);
+}
+addEventListener('touchstart', unlock, {passive:true, once:true});
+addEventListener('scroll', unlock, {passive:true, once:true});
+
+const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+
+function progress(){
+  const rect  = track.getBoundingClientRect();
+  const span  = track.offsetHeight - innerHeight;
+  return span <= 0 ? 0 : clamp(-rect.top / span, 0, 1);
+}
+
+/* opacity ramp for one stage across the whole timeline */
+function stageAlpha(i, p){
+  const seg   = 1 / STAGES;
+  const start = i * seg;
+  const fade  = seg * 0.22;
+  const rise  = clamp((p - start) / fade, 0, 1);
+  const fall  = clamp((start + seg - p) / fade, 0, 1);
+  return Math.min(rise, fall);
+}
+
+function paint(){
+  const p = progress();
+  target = p * duration;
+
+  captions.forEach((c, i) => {
+    const a = stageAlpha(i, p);
+    c.style.opacity = a.toFixed(3);
+    c.style.transform = `translateY(${((1 - a) * 22).toFixed(1)}px)`;
+  });
+
+  railBars.forEach((bar, i) => {
+    const seg  = 1 / STAGES;
+    const fill = (clamp((p - i * seg) / seg, 0, 1) * 100).toFixed(1);
+    bar.style.backgroundImage =
+      `linear-gradient(to bottom, var(--accent) ${fill}%, transparent ${fill}%)`;
+  });
+}
+
+/* lerp toward the scroll target so seeking stays smooth */
+function tick(){
+  if (ready){
+    shown += (target - shown) * 0.14;
+    if (Math.abs(target - shown) < 0.004) shown = target;
+    if (!film.seeking) film.currentTime = shown;
+  }
+  requestAnimationFrame(tick);
+}
+
+addEventListener('scroll', paint, {passive:true});
+addEventListener('resize', paint);
+paint();
+requestAnimationFrame(tick);
+
+/* ---- order form ---- */
+const form = document.getElementById('orderForm');
+const err  = document.getElementById('formErr');
+const ok   = document.getElementById('formOk');
+
+form.addEventListener('input', () => { err.style.display = 'none'; });
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const d = Object.fromEntries(new FormData(form).entries());
+
+  if (!d.brand.trim() || !d.model.trim() || !d.phone.trim()){
+    err.style.display = 'block';
+    ok.style.display  = 'none';
+    return;
+  }
+
+  err.style.display = 'none';
+  ok.style.display  = 'block';
+  ok.textContent    = `Заявка принята: ${d.brand} ${d.model}${d.year ? ', ' + d.year : ''}. Свяжемся по номеру ${d.phone}.`;
+  form.reset();
+});
+</script>
+</body>
+</html>
