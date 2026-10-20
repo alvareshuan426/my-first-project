@@ -273,7 +273,7 @@ footer a:hover{color:var(--text)}
     <a href="#process">Производство</a>
     <a href="#materials">Материалы</a>
     <a href="#shops">Где купить</a>
-    <a href="tel:+79003388888" class="nav-phone">8-900-33-88888</a>
+    <a href="tel:+79624222222" class="nav-phone">8-962-422-22-22</a>
     <a href="#order" class="btn-sm">Подобрать комплект</a>
   </div>
 </nav>
@@ -442,6 +442,7 @@ footer a:hover{color:var(--text)}
   </div>
 
   <form class="order rv" id="orderForm" novalidate>
+    <input type="hidden" name="_subject" value="Заявка с сайта Adittaprof">
     <div class="fields">
       <div class="field">
         <label for="brand">Марка</label>
@@ -473,18 +474,18 @@ footer a:hover{color:var(--text)}
         <input id="city" name="city" type="text" placeholder="Ставрополь" autocomplete="address-level2">
       </div>
     </div>
-    <p class="err" id="formErr">Заполните марку, модель и телефон.</p>
+    <p class="err" id="formErr"></p>
     <div class="order-foot">
-      <button type="submit" class="btn">Отправить заявку</button>
+      <button type="submit" class="btn" id="orderBtn">Отправить заявку</button>
       <span class="order-note">Перезвоним и уточним детали. Никаких рассылок.</span>
     </div>
     <div class="ok" id="formOk"></div>
   </form>
 
   <div class="contacts rv">
-    <a class="contact" href="tel:+79003388888">
+    <a class="contact" href="tel:+79624222222">
       <span class="k">Телефон</span>
-      <span class="v">8-900-33-88888</span>
+      <span class="v">8-962-422-22-22</span>
       <span class="n">Звонок или WhatsApp</span>
     </a>
     <a class="contact" href="https://t.me/adittaprof" target="_blank" rel="noopener">
@@ -509,7 +510,7 @@ footer a:hover{color:var(--text)}
       </div>
       <div>
         <h5>Контакты</h5>
-        <a href="tel:+79003388888">8-900-33-88888</a>
+        <a href="tel:+79624222222">8-962-422-22-22</a>
         <a href="https://t.me/adittaprof" target="_blank" rel="noopener">Telegram @adittaprof</a>
         <p>г. Ставрополь</p>
         <p>Отгрузка по всей России</p>
@@ -631,26 +632,61 @@ paint();
 requestAnimationFrame(tick);
 
 /* ---- order form ---- */
+
+/* Получить адрес: зарегистрироваться на formspree.io → New form → скопировать
+   endpoint вида https://formspree.io/f/abcdwxyz и вставить его сюда. */
+const FORMSPREE = 'https://formspree.io/f/ВАШ_ID';
+
 const form = document.getElementById('orderForm');
+const btn  = document.getElementById('orderBtn');
 const err  = document.getElementById('formErr');
 const ok   = document.getElementById('formOk');
 
-form.addEventListener('input', () => { err.style.display = 'none'; });
+const CONTACT_FALLBACK =
+  'Не удалось отправить заявку. Позвоните 8-962-422-22-22 или напишите в Telegram @adittaprof — ответим сразу.';
 
-form.addEventListener('submit', (e) => {
+function say(el, text){ el.textContent = text; el.style.display = 'block'; }
+function hide(el){ el.style.display = 'none'; }
+
+form.addEventListener('input', () => hide(err));
+
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
-  const d = Object.fromEntries(new FormData(form).entries());
+
+  const fd = new FormData(form);
+  const d  = Object.fromEntries(fd.entries());
 
   if (!d.brand.trim() || !d.model.trim() || !d.phone.trim()){
-    err.style.display = 'block';
-    ok.style.display  = 'none';
+    say(err, 'Заполните марку, модель и телефон.');
+    hide(ok);
     return;
   }
 
-  err.style.display = 'none';
-  ok.style.display  = 'block';
-  ok.textContent    = `Заявка принята: ${d.brand} ${d.model}${d.year ? ', ' + d.year : ''}. Свяжемся по номеру ${d.phone}.`;
-  form.reset();
+  hide(err);
+  hide(ok);
+  btn.disabled = true;
+  btn.textContent = 'Отправляем…';
+
+  const kit = form.querySelector('#kit').selectedOptions[0].textContent;
+  fd.set('Заявка', `${d.brand} ${d.model}${d.year ? ', ' + d.year : ''} · ${kit} · тел. ${d.phone}${d.city ? ' · ' + d.city : ''}`);
+
+  try {
+    const res = await fetch(FORMSPREE, {
+      method: 'POST',
+      headers: { Accept: 'application/json' },
+      body: fd,
+    });
+    if (!res.ok) throw new Error(res.status);
+
+    say(ok, `Заявка отправлена: ${d.brand} ${d.model}${d.year ? ', ' + d.year : ''}. Свяжемся по номеру ${d.phone}.`);
+    form.reset();
+  } catch {
+    /* никогда не показываем ложное подтверждение — даём живые контакты */
+    say(err, CONTACT_FALLBACK);
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Отправить заявку';
+  }
 });
 </script>
 </body>
