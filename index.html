@@ -235,17 +235,23 @@ h3.sec-title{
 .shops{display:grid;grid-template-columns:1fr 1fr;gap:20px}
 @media(max-width:860px){.shops{grid-template-columns:1fr}}
 .shop{
-  border:1px solid var(--border);border-radius:18px;background:var(--surface);
+  border-radius:18px;color:#fff;
   padding:38px 34px;display:flex;flex-direction:column;gap:10px;
-  transition:border-color .3s,background .3s,transform .3s;
+  transition:transform .25s ease,filter .25s ease,box-shadow .25s ease;
 }
-.shop:hover{border-color:var(--accent);background:var(--surface-2);transform:translateY(-3px)}
+.shop:hover{transform:translateY(-4px);filter:brightness(1.09)}
+.shop:active{transform:translateY(-1px)}
+.shop-ozon{background:#005BFF;box-shadow:0 14px 34px -14px rgba(0,91,255,.75)}
+.shop-ozon:hover{box-shadow:0 20px 42px -14px rgba(0,91,255,.85)}
+.shop-wb{background:linear-gradient(135deg,#7B1FA2 0%,#CB11AB 100%);box-shadow:0 14px 34px -14px rgba(203,17,171,.75)}
+.shop-wb:hover{box-shadow:0 20px 42px -14px rgba(203,17,171,.85)}
 .shop-name{font-size:1.9rem;font-weight:800;letter-spacing:-.03em}
-.shop-sub{color:var(--muted);font-size:.97rem}
+.shop-sub{color:rgba(255,255,255,.95);font-size:.97rem}
 .shop-go{
-  margin-top:18px;color:var(--accent);font-weight:700;font-size:.92rem;
+  margin-top:18px;font-weight:700;font-size:.92rem;
   letter-spacing:.04em;display:inline-flex;align-items:center;gap:8px;
 }
+.shop:focus-visible{outline:2px solid var(--text);outline-offset:3px}
 
 /* contacts */
 .contacts{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);
@@ -478,27 +484,6 @@ footer a:hover{color:var(--text)}
   </div>
 </section>
 
-<!-- ===== marketplaces ===== -->
-<section class="band wrap" id="shops">
-  <div class="sec-head rv">
-    <span class="eyebrow">Где купить</span>
-    <h3 class="sec-title">Мы на маркетплейсах</h3>
-    <p>Готовые комплекты под популярные модели — с доставкой в ваш город, отзывами и защитой площадки.</p>
-  </div>
-  <div class="shops rv">
-    <a class="shop" href="https://www.ozon.ru/seller/adittaprof-3013156/" target="_blank" rel="noopener">
-      <span class="shop-name">Ozon</span>
-      <span class="shop-sub">Официальный магазин Adittaprof</span>
-      <span class="shop-go">Открыть магазин →</span>
-    </a>
-    <a class="shop" href="https://www.wildberries.ru/brands/312228672-adittaprof" target="_blank" rel="noopener">
-      <span class="shop-name">Wildberries</span>
-      <span class="shop-sub">Бренд Adittaprof</span>
-      <span class="shop-go">Открыть бренд →</span>
-    </a>
-  </div>
-</section>
-
 <!-- ===== order ===== -->
 <section class="band wrap" id="order">
   <div class="sec-head rv">
@@ -564,6 +549,27 @@ footer a:hover{color:var(--text)}
       <span class="v">Ставрополь</span>
       <span class="n">Отгрузка по всей России</span>
     </div>
+  </div>
+</section>
+
+<!-- ===== marketplaces ===== -->
+<section class="band wrap" id="shops">
+  <div class="sec-head rv">
+    <span class="eyebrow">Где купить</span>
+    <h3 class="sec-title">Мы на маркетплейсах</h3>
+    <p>Готовые комплекты под популярные модели — с доставкой в ваш город, отзывами и защитой площадки.</p>
+  </div>
+  <div class="shops rv">
+    <a class="shop shop-ozon" href="https://www.ozon.ru/seller/adittaprof-3013156/" target="_blank" rel="noopener">
+      <span class="shop-name">Ozon</span>
+      <span class="shop-sub">Официальный магазин Adittaprof</span>
+      <span class="shop-go">Открыть магазин →</span>
+    </a>
+    <a class="shop shop-wb" href="https://www.wildberries.ru/brands/312228672-adittaprof" target="_blank" rel="noopener">
+      <span class="shop-name">Wildberries</span>
+      <span class="shop-sub">Бренд Adittaprof</span>
+      <span class="shop-go">Открыть бренд →</span>
+    </a>
   </div>
 </section>
 
