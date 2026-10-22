@@ -232,8 +232,8 @@ h3.sec-title{
 .live-copy li::before{content:"—";position:absolute;left:0;color:var(--accent)}
 
 /* marketplaces */
-.shops{display:grid;grid-template-columns:1fr 1fr;gap:20px}
-@media(max-width:860px){.shops{grid-template-columns:1fr}}
+.shops{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media(max-width:900px){.shops{grid-template-columns:1fr}}
 .shop{
   border-radius:18px;color:#fff;
   padding:38px 34px;display:flex;flex-direction:column;gap:10px;
@@ -245,7 +245,10 @@ h3.sec-title{
 .shop-ozon:hover{box-shadow:0 20px 42px -14px rgba(0,91,255,.85)}
 .shop-wb{background:linear-gradient(135deg,#7B1FA2 0%,#CB11AB 100%);box-shadow:0 14px 34px -14px rgba(203,17,171,.75)}
 .shop-wb:hover{box-shadow:0 20px 42px -14px rgba(203,17,171,.85)}
-.shop-name{font-size:1.9rem;font-weight:800;letter-spacing:-.03em}
+.shop-ym{background:#FFCC00;color:#161308;box-shadow:0 14px 34px -14px rgba(255,204,0,.6)}
+.shop-ym:hover{box-shadow:0 20px 42px -14px rgba(255,204,0,.7)}
+.shop-ym .shop-sub{color:rgba(22,19,8,.78)}
+.shop-name{font-size:1.65rem;font-weight:800;letter-spacing:-.03em}
 .shop-sub{color:rgba(255,255,255,.95);font-size:.97rem}
 .shop-go{
   margin-top:18px;font-weight:700;font-size:.92rem;
@@ -570,6 +573,11 @@ footer a:hover{color:var(--text)}
       <span class="shop-sub">Бренд AB Aditta</span>
       <span class="shop-go">Открыть бренд →</span>
     </a>
+    <a class="shop shop-ym" href="https://market.yandex.ru/business--adittaprof/141160028" target="_blank" rel="noopener">
+      <span class="shop-name">Яндекс Маркет</span>
+      <span class="shop-sub">Магазин AB Aditta</span>
+      <span class="shop-go">Открыть магазин →</span>
+    </a>
   </div>
 </section>
 
@@ -591,6 +599,7 @@ footer a:hover{color:var(--text)}
         <h5>Где купить</h5>
         <a href="https://www.ozon.ru/seller/adittaprof-3013156/" target="_blank" rel="noopener">Ozon</a>
         <a href="https://www.wildberries.ru/brands/312228672-adittaprof" target="_blank" rel="noopener">Wildberries</a>
+        <a href="https://market.yandex.ru/business--adittaprof/141160028" target="_blank" rel="noopener">Яндекс Маркет</a>
       </div>
       <div>
         <h5>Разделы</h5>
